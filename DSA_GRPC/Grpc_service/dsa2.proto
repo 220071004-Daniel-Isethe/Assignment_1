@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+
+service LibararyManagementServer {
+    
+
+  rpc add_book (Book) returns (google.protobuf.StringValue);
+  rpc create_users (stream User) returns (google.protobuf.StringValue);
+  rpc update_book ( Book) returns (google.protobuf.StringValue);
+  rpc remove_book ( google.protobuf.StringValue) returns ( ListOfBookResponse);
+  rpc list_avaialable_books (google.protobuf.StringValue) returns (google.protobuf.StringValue);   
+  rpc locate_book ( google.protobuf.StringValue) returns ( google.protobuf.StringValue); 
+  rpc borrow_book ( BorrowBook) returns ( Book); 
+  
+
+} 
+
+message Book {
+    string title = 1;
+    string author_1 = 2;
+    string author_2 = 3;
+    string location = 4;
+    string isbn = 5;
+    bool status = 6;
+}
+
+message BookResponse {
+    string isbn = 1;
+}
+
+message User {
+    string name = 1;
+    string id = 2;
+    repeated string isbn = 3;
+}
+
+message BorrowBook {
+    string user_id = 1;
+    string isbn = 2;
+    
+}
+
+message ListOfBookResponse {
+    repeated Book books = 1;
+}
